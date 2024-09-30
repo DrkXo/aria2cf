@@ -1,12 +1,9 @@
-
-
-
 part of "parser.dart";
 
-abstract class Aria2Response {
+abstract class Aria2Response extends Equatable {
   final String jsonrpc;
 
-  Aria2Response({required this.jsonrpc});
+  const Aria2Response({required this.jsonrpc});
 
   factory Aria2Response.fromJson(Map<String, dynamic> json) {
     if (json.containsKey('error')) {
@@ -25,7 +22,7 @@ class Aria2ErrorResponse extends Aria2Response {
   final int code;
   final String message;
 
-  Aria2ErrorResponse({
+  const Aria2ErrorResponse({
     required super.jsonrpc,
     required this.code,
     required this.message,
@@ -41,6 +38,9 @@ class Aria2ErrorResponse extends Aria2Response {
 
   @override
   String toString() => 'Error(code: $code, message: $message)';
+
+  @override
+  List<Object?> get props => [jsonrpc, code, message];
 }
 
 // Method response class (for success responses)
@@ -49,7 +49,7 @@ class Aria2MethodResponse extends Aria2Response {
   final Aria2Result result;
   final Aria2cRpcMethod method; // Enum type for method
 
-  Aria2MethodResponse({
+  const Aria2MethodResponse({
     required super.jsonrpc,
     required this.id,
     required this.result,
@@ -71,14 +71,16 @@ class Aria2MethodResponse extends Aria2Response {
   @override
   String toString() =>
       'MethodResponse(id: $id, method: $method, result: $result)';
+
+  @override
+  List<Object?> get props => [jsonrpc, id, result, method];
 }
 
-// Notification class (for events like onDownloadComplete)
 class Aria2Notification extends Aria2Response {
   final String method;
   final List<dynamic> params;
 
-  Aria2Notification({
+  const Aria2Notification({
     required super.jsonrpc,
     required this.method,
     required this.params,
@@ -94,4 +96,7 @@ class Aria2Notification extends Aria2Response {
 
   @override
   String toString() => 'Notification(method: $method, params: $params)';
+
+  @override
+  List<Object?> get props => [method, params];
 }

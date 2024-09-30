@@ -1,6 +1,6 @@
 part of "parser.dart";
 
-abstract class Aria2Result {
+abstract class Aria2Result extends Equatable {
   const Aria2Result();
 
   factory Aria2Result.fromJson(Aria2cRpcMethod method, dynamic resultJson) {
@@ -11,19 +11,18 @@ abstract class Aria2Result {
         return AddUriResult.fromJson(resultJson);
       // Add more methods as needed */
 
-      case Aria2cRpcMethod.addUri:
-        return resultJson;
+      /* case Aria2cRpcMethod.addUri:
+        return resultJson; */
       default:
         return RawResult(resultJson); // Generic result for unhandled cases
     }
   }
 }
 
-// Generic class for handling unparsed results
 class RawResult extends Aria2Result {
   final dynamic result;
-  RawResult(this.result);
+  const RawResult(this.result);
 
   @override
-  String toString() => 'RawResult(result: $result)';
+  List<Object?> get props => [result];
 }
