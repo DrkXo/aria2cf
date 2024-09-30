@@ -14,7 +14,8 @@ class Aria2cSocket {
     return _instance;
   }
 
-  String _secret = "flutter";
+  // ignore: unused_field
+  final String _secret = "flutter";
   IOWebSocketChannel _channel;
   bool isReady = false;
 
@@ -68,7 +69,7 @@ class Aria2cSocket {
   void sendData({
     required Aria2cRequest request,
   }) {
-    _channel.sink.add(request);
+    _channel.sink.add(request.toJson());
   }
 
   void disconnect() {
