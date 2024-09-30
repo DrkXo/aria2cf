@@ -1,2 +1,2 @@
-library aria2cf;
+library;
 

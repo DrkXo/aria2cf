@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:aria2cf/src/common/models/request.dart';
 import 'package:aria2cf/src/utils/logger.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -13,7 +14,7 @@ class Aria2cSocket {
     return _instance;
   }
 
-  String secret = "flutter";
+  String _secret = "flutter";
   IOWebSocketChannel _channel;
   bool isReady = false;
 
@@ -24,7 +25,7 @@ class Aria2cSocket {
 
   final _dataStreamController = StreamController<String>();
 
-   Stream<String> get dataStream => _dataStreamController.stream;
+  Stream<String> get dataStream => _dataStreamController.stream;
 
   Future<void> connect() async {
     try {
@@ -64,8 +65,10 @@ class Aria2cSocket {
     );
   }
 
-  void sendData(String data) {
-    _channel.sink.add(data);
+  void sendData({
+    required Aria2cRequest request,
+  }) {
+    _channel.sink.add(request);
   }
 
   void disconnect() {
