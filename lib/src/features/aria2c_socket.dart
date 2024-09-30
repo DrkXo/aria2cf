@@ -3,8 +3,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:aria2cf/src/common/models/request.dart';
-import 'package:aria2cf/src/common/models/response.dart';
+import 'package:aria2cf/src/common/models/parser/request.dart';
+import 'package:aria2cf/src/common/models/parser/response.dart';
 import 'package:aria2cf/src/utils/logger.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:web_socket_channel/io.dart';
