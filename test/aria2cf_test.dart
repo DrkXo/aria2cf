@@ -1,6 +1,6 @@
-import 'package:aria2cf/src/features/aria2c_socket.dart';
 import 'package:aria2cf/src/common/enums/methods.dart';
-import 'package:aria2cf/src/common/models/parser/request.dart';
+import 'package:aria2cf/src/common/models/parser/parser.dart';
+import 'package:aria2cf/src/features/aria2c_socket.dart';
 import 'package:test/test.dart';
 
 void main() async {

@@ -1,4 +1,4 @@
-import 'package:aria2cf/src/common/enums/methods.dart';
+part of "parser.dart";
 
 abstract class Aria2Result {
   const Aria2Result();

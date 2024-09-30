@@ -1,5 +1,7 @@
-import 'package:aria2cf/src/common/enums/methods.dart';
-import 'package:aria2cf/src/common/models/parser/results.dart';
+
+
+
+part of "parser.dart";
 
 abstract class Aria2Response {
   final String jsonrpc;

@@ -1,4 +1,4 @@
-import 'package:aria2cf/src/common/models/parser/request.dart';
+import 'package:aria2cf/src/common/models/parser/parser.dart';
 
 enum Aria2cRpcMethod {
   unpauseAll('aria2.unpauseAll'),
