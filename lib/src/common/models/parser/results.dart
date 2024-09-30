@@ -10,6 +10,9 @@ abstract class Aria2Result {
       case Aria2cRpcMethod.addUri:
         return AddUriResult.fromJson(resultJson);
       // Add more methods as needed */
+
+      case Aria2cRpcMethod.addUri:
+        return resultJson;
       default:
         return RawResult(resultJson); // Generic result for unhandled cases
     }
