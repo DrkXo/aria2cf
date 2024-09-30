@@ -11,8 +11,8 @@ abstract class Aria2Result extends Equatable {
         return AddUriResult.fromJson(resultJson);
       // Add more methods as needed */
 
-      /* case Aria2cRpcMethod.addUri:
-        return resultJson; */
+      case Aria2cRpcMethod.getVersion:
+        return Aria2cVersion.fromJson(resultJson);
       default:
         return RawResult(resultJson); // Generic result for unhandled cases
     }

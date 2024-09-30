@@ -1,5 +1,3 @@
-import 'package:aria2cf/src/common/models/parser/parser.dart';
-
 enum Aria2cRpcMethod {
   unpauseAll('aria2.unpauseAll'),
   unpause('aria2.unpause'),
@@ -57,17 +55,4 @@ enum Aria2cRpcMethod {
 
   @override
   String toString() => name;
-}
-
-extension Aria2cRpcMethodExtension on Aria2cRpcMethod {
-  Aria2cRequest toAria2cRequest({
-    required String secret,
-    required List params,
-  }) {
-    return Aria2cRequest(
-      secret: secret,
-      method: this,
-      params: params,
-    );
-  }
 }

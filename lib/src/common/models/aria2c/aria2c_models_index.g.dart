@@ -499,14 +499,3 @@ const _$Aria2cUrlStatusEnumMap = {
   Aria2cUrlStatus.used: 'used',
   Aria2cUrlStatus.waiting: 'waiting',
 };
-
-Aria2cVersion _$Aria2cVersionFromJson(Map<String, dynamic> json) =>
-    Aria2cVersion()
-      ..enabledFeatures = json['enabledFeatures'] as List<dynamic>
-      ..version = json['version'] as String;
-
-Map<String, dynamic> _$Aria2cVersionToJson(Aria2cVersion instance) =>
-    <String, dynamic>{
-      'enabledFeatures': instance.enabledFeatures,
-      'version': instance.version,
-    };

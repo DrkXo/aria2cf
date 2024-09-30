@@ -1,8 +1,8 @@
 part of "../features/aria2c_socket.dart";
 
-void _transformResponse(data, EventSink sink) {
+Future<void> _transformResponse(data, EventSink sink) async {
   try {
-    logger(data);
+    //logger(data);
     final response = Aria2Response.fromJson(jsonDecode(data));
     sink.add(response);
   } catch (e) {

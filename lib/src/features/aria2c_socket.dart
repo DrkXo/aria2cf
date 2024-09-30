@@ -32,7 +32,7 @@ class Aria2cSocket extends Aria2cSocketUtils {
     sync: true,
   );
 
-  Stream<dynamic> get dataStream => _behaviorSubject.transform(transformer);
+  Stream<dynamic> get dataStream => _behaviorSubject.stream;
 
   Future<void> connect() async {
     try {
@@ -56,7 +56,7 @@ class Aria2cSocket extends Aria2cSocketUtils {
   }
 
   void _addListener() {
-    _channel.stream.listen(
+    _channel.stream.transform(transformer).listen(
       (data) {
         //logger('Data: $data');
         _behaviorSubject.add(data);
