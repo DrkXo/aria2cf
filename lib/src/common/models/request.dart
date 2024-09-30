@@ -14,8 +14,7 @@ class Aria2cRequest {
     required this.secret,
     required this.method,
     required this.params,
-    String? id,
-  }) : id = id ?? secret {
+  }) : id = method.name {
     _format();
   }
 

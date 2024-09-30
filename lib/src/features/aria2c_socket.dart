@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aria2cf/src/common/models/request.dart';
+import 'package:aria2cf/src/common/models/response.dart';
 import 'package:aria2cf/src/utils/logger.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:web_socket_channel/io.dart';
@@ -28,11 +29,11 @@ class Aria2cSocket extends Aria2cSocketUtils {
           'ws://127.0.0.1:6800/jsonrpc',
         );
 
-  final _behaviorSubject = BehaviorSubject<dynamic>(
+  final _behaviorSubject = BehaviorSubject(
     sync: true,
   );
 
-  Stream<dynamic> get dataStream => _behaviorSubject.stream;
+  Stream<dynamic> get dataStream => _behaviorSubject.transform(transformer);
 
   Future<void> connect() async {
     try {
@@ -42,31 +43,31 @@ class Aria2cSocket extends Aria2cSocketUtils {
       _addListener();
     } on SocketException catch (e) {
       // Handle the exception.
-      //logger(e);
+      logger(e);
       rethrow;
     } on WebSocketChannelException catch (e) {
       // Handle the exception.
-      // logger(e);
+      logger(e);
       rethrow;
     } catch (e, s) {
-      //logger('catch : $e\n$s');
+      logger('catch : $e\n$s');
       rethrow;
       // Handle the exception.
     }
   }
 
   void _addListener() {
-    _channel.stream.transform(transformer).listen(
+    _channel.stream.listen(
       (data) {
-        logger('Data: $data');
+        //logger('Data: $data');
         _behaviorSubject.add(data);
       },
       onError: (error) {
-        logger('Error: $error');
+        //logger('Error: $error');
         _behaviorSubject.addError(error);
       },
       onDone: () {
-        logger('WebSocket closed');
+        //logger('WebSocket closed');
         _behaviorSubject.close();
       },
     );

@@ -1,6 +1,7 @@
-import 'package:aria2cf/src/features/aria2c_socket.dart';
 import 'package:aria2cf/src/common/enums/methods.dart';
 import 'package:aria2cf/src/common/models/request.dart';
+import 'package:aria2cf/src/features/aria2c_socket.dart';
+import 'package:aria2cf/src/utils/logger.dart';
 
 main() async {
   Aria2cSocket aria2cSocket = Aria2cSocket();
@@ -17,4 +18,18 @@ main() async {
       ),
     );
   });
+
+  aria2cSocket.dataStream.listen(
+    (onData) {
+      logger('DataStream|Data');
+      logger(onData.toString());
+    },
+    onError: (onError) {
+      logger('DataStream|Error');
+      logger(onError.toString());
+    },
+    onDone: () {
+      logger('DataStream|Done');
+    },
+  );
 }

@@ -40,18 +40,23 @@ enum Aria2cRpcMethod {
 
   final String name;
 
-  const Aria2cRpcMethod(
-    this.name,
-  );
+  const Aria2cRpcMethod(this.name);
 
   Map<String, dynamic> toMap() {
     return {
-      "methodName": name,
+      "method": name,
       "params": [],
     };
   }
 
-  static Aria2cRpcMethod fromJson(String json) => values.byName(json);
+  // Convert from string to enum value
+  static Aria2cRpcMethod fromJson(String json) {
+    return Aria2cRpcMethod.values.singleWhere((e) => e.name == json,
+        orElse: () => throw ArgumentError('Invalid method name'));
+  }
+
+  @override
+  String toString() => name;
 }
 
 extension Aria2cRpcMethodExtension on Aria2cRpcMethod {

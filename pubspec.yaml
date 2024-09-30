@@ -17,6 +17,7 @@ dependencies:
   process_run: ^1.2.0+1
   web_socket_channel: ^3.0.1
   rxdart: ^0.28.0
+  worker_manager: ^7.2.1
 
 
 dev_dependencies:

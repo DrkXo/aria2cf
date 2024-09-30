@@ -1,18 +1,17 @@
 part of "../features/aria2c_socket.dart";
 
-void socketDataTransformer(data, EventSink sink) {
+void _transformResponse(data, EventSink sink) {
   try {
     logger(data);
-    var decoded = jsonDecode(data);
-    sink.add(decoded['result']);
+    final response = Aria2Response.fromJson(jsonDecode(data));
+    sink.add(response);
   } catch (e) {
-    logger('socketDataTransformer Error : $e');
-    sink.add(data);
+    sink.addError('Data Parsing Error : $e');
   }
 }
 
 sealed class Aria2cSocketUtils {
   StreamTransformer transformer = StreamTransformer.fromHandlers(
-    handleData: socketDataTransformer,
+    handleData: _transformResponse,
   );
 }
