@@ -19,7 +19,7 @@ void main() async {
         ),
       );
     });
-    expect(aria2cSocket.dataStream,emitsDone);
+    expect(aria2cSocket.dataStream, emitsDone);
     aria2cSocket.disconnect();
   });
 }
