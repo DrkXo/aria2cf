@@ -1,4 +1,4 @@
-import 'package:aria2cf/src/aria2c_socket.dart';
+import 'package:aria2cf/src/features/aria2c_socket.dart';
 import 'package:aria2cf/src/common/enums/methods.dart';
 import 'package:aria2cf/src/common/models/request.dart';
 import 'package:test/test.dart';

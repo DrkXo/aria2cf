@@ -1,0 +1,8 @@
+[log] websocket ready!
+[log] {"id":"flutter","jsonrpc":"2.0","result":"cf0b7770761220d0"}
+[log] Data: cf0b7770761220d0
+[log] {"jsonrpc":"2.0","method":"aria2.onDownloadStart","params":[{"gid":"cf0b7770761220d0"}]}
+[log] Data: null
+[log] {"jsonrpc":"2.0","method":"aria2.onDownloadComplete","params":[{"gid":"cf0b7770761220d0"}]}
+[log] Data: null
+[log] WebSocket closed
