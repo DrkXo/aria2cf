@@ -19,9 +19,10 @@ class Aria2cSocket extends Aria2cSocketUtils {
   }
 
   // ignore: unused_field
-  final String _secret = "flutter";
-  IOWebSocketChannel _channel;
-  bool isReady = false;
+  // late final String _secret;
+  final IOWebSocketChannel _channel;
+  // ignore: unused_field
+  bool _isReady = false;
 
   Aria2cSocket._singleTone()
       : _channel = IOWebSocketChannel.connect(
@@ -40,7 +41,7 @@ class Aria2cSocket extends Aria2cSocketUtils {
   Future<void> connect() async {
     try {
       await _channel.ready;
-      isReady = true;
+      _isReady = true;
       logger('websocket ready!');
       _addListener();
     } on SocketException catch (e) {
@@ -82,7 +83,7 @@ class Aria2cSocket extends Aria2cSocketUtils {
   }
 
   void disconnect() {
-    isReady = true;
+    _isReady = true;
     _channel.sink.close();
   }
 }

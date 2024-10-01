@@ -3,7 +3,9 @@ part of "parser.dart";
 abstract class Aria2Response extends Equatable {
   final String jsonrpc;
 
-  const Aria2Response({required this.jsonrpc});
+  const Aria2Response({
+    required this.jsonrpc,
+  });
 
   factory Aria2Response.fromJson(Map<String, dynamic> json) {
     if (json.containsKey('error')) {
