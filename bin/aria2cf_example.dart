@@ -26,7 +26,10 @@ main() async {
     (onData) {
       logger('DataStream|Data');
       logger(onData.toString());
-      logger(onData.runtimeType);
+
+      Aria2MethodResponse data = onData;
+
+      logger(data);
     },
     onError: (onError) {
       logger('DataStream|Error');

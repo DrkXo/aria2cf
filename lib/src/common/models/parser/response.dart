@@ -1,11 +1,11 @@
 part of "parser.dart";
 
 abstract class Aria2Response extends Equatable {
-  final String jsonrpc;
+  final String _jsonrpc;
 
   const Aria2Response({
-    required this.jsonrpc,
-  });
+    required String jsonrpc,
+  }) : _jsonrpc = jsonrpc;
 
   factory Aria2Response.fromJson(Map<String, dynamic> json) {
     if (json.containsKey('error')) {
@@ -39,7 +39,7 @@ class Aria2ErrorResponse extends Aria2Response {
   }
 
   @override
-  List<Object?> get props => [jsonrpc, code, message];
+  List<Object?> get props => [_jsonrpc, code, message];
 }
 
 // Method response class (for success responses)
@@ -68,7 +68,7 @@ class Aria2MethodResponse extends Aria2Response {
   }
 
   @override
-  List<Object?> get props => [jsonrpc, id, result, method];
+  List<Object?> get props => [/* _jsonrpc, */ id, result, method];
 }
 
 class Aria2Notification extends Aria2Response {
