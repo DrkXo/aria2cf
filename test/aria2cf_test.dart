@@ -22,7 +22,7 @@ void main() async {
         ),
       );
     });
-    expect(aria2cSocket.dataStream, emits(Aria2MethodResponse));
+    expect(aria2cSocket._dataStream, emits(Aria2MethodResponse));
   });
 
   test('Get Version', () async {
@@ -36,7 +36,7 @@ void main() async {
       );
     });
 
-    expect(aria2cSocket.dataStream, emitsInAnyOrder([Aria2MethodResponse]));
+    expect(aria2cSocket._dataStream, emitsInAnyOrder([Aria2MethodResponse]));
     //aria2cSocket.disconnect();
   });
 }
