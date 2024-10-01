@@ -9,14 +9,17 @@ main() async {
     aria2cSocket.sendData(
       request: Aria2cRequest.getVersion(
         secret: 'flutter',
-        /*  method: Aria2cRpcMethod.getVersion,
-        params: [
-          /* [
-            'https://files.testfile.org/Video%20MP4%2FMoon%20-%20testfile.org.mp4'
-          ] */
-        ], */
       ),
     );
+
+    /* aria2cSocket.sendData( 
+      request: Aria2cRequest.addUrl(
+        secret: 'flutter',
+        urls: [
+          'https://file-examples.com/storage/fe58a1f07d66f447a9512f1/2017/04/file_example_MP4_1920_18MG.mp4'
+        ],
+      ),
+    ); */
   });
 
   aria2cSocket.dataStream.listen(

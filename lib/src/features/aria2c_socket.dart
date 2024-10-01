@@ -30,6 +30,9 @@ class Aria2cSocket extends Aria2cSocketUtils {
 
   final _behaviorSubject = BehaviorSubject(
     sync: true,
+    onListen: () {
+      logger('initialized dataStream listener!');
+    },
   );
 
   Stream<dynamic> get dataStream => _behaviorSubject.stream;

@@ -37,9 +37,6 @@ class Aria2ErrorResponse extends Aria2Response {
   }
 
   @override
-  String toString() => 'Error(code: $code, message: $message)';
-
-  @override
   List<Object?> get props => [jsonrpc, code, message];
 }
 
@@ -69,10 +66,6 @@ class Aria2MethodResponse extends Aria2Response {
   }
 
   @override
-  String toString() =>
-      'MethodResponse(id: $id, method: $method, result: $result)';
-
-  @override
   List<Object?> get props => [jsonrpc, id, result, method];
 }
 
@@ -93,9 +86,6 @@ class Aria2Notification extends Aria2Response {
       params: json['params'],
     );
   }
-
-  @override
-  String toString() => 'Notification(method: $method, params: $params)';
 
   @override
   List<Object?> get props => [method, params];

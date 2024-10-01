@@ -7,19 +7,11 @@ class Aria2cRequest {
   Aria2cRpcMethod method;
   List params;
 
-  /* Aria2cRequest({
+  Aria2cRequest.addUrl({
     required this.secret,
-    required this.method,
-    required this.params,
-  }) : id = method.name {
-    _format();
-  } */
-
-  Aria2cRequest.addUri({
-    required this.secret,
-    required List<String> uris,
+    required List<String> urls,
   })  : method = Aria2cRpcMethod.addUri,
-        params = uris {
+        params = [urls] {
     id = method.name;
     _format();
   }
