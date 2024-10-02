@@ -29,7 +29,7 @@ class Aria2cService {
       return;
     }
 
-    String binaryPath = this.binaryPath.getPlatformPath;
+    String binaryPath = '';
 
     if (Platform.isLinux || Platform.isMacOS || Platform.isAndroid) {
       await Process.run('chmod', ['+x', binaryPath]);
