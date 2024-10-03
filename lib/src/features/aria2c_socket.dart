@@ -5,7 +5,6 @@ import 'dart:io';
 
 import 'package:aria2cf/src/common/models/parser/parser.dart';
 import 'package:aria2cf/src/utils/logger.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -29,11 +28,16 @@ class Aria2cSocket extends Aria2cSocketUtils {
           'ws://127.0.0.1:6800/jsonrpc',
         );
 
-  final _behaviorSubject = BehaviorSubject(
+  /* final _behaviorSubject = BehaviorSubject(
     sync: true,
     onListen: () {
       logger('initialized dataStream listener!');
     },
+  );
+   */
+
+  final _behaviorSubject = StreamController.broadcast(
+    sync: true,
   );
 
   Stream<dynamic> get dataStream => _behaviorSubject.stream;
@@ -62,11 +66,11 @@ class Aria2cSocket extends Aria2cSocketUtils {
   void _addListener() {
     _channel.stream.transform(transformer).listen(
       (data) {
-        //logger('Data: $data');
+        //logger('Data: ${data.toString()}');
         _behaviorSubject.add(data);
       },
       onError: (error) {
-        //logger('Error: $error');
+        //logger('Error: ${error.toString()}');
         _behaviorSubject.addError(error);
       },
       onDone: () {
@@ -79,11 +83,12 @@ class Aria2cSocket extends Aria2cSocketUtils {
   void sendData({
     required Aria2cRequest request,
   }) {
+    //logger('SendData ${request.toJson()}');
     _channel.sink.add(request.toJson());
   }
 
   void disconnect() {
-    _isReady = true;
+    _isReady = false;
     _channel.sink.close();
   }
 }

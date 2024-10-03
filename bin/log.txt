@@ -1,10 +1,32 @@
 [log] websocket ready!
-[log] {"id":"aria2.addUri","jsonrpc":"2.0","result":"6836fed41d4111d9"}
-[log] Data: {"id":"aria2.addUri","jsonrpc":"2.0","result":"6836fed41d4111d9"}
-[log] {"jsonrpc":"2.0","method":"aria2.onDownloadStart","params":[{"gid":"6836fed41d4111d9"}]}
-[log] socketDataTransformer Error : type 'Null' is not a subtype of type 'String'
-[log] Data: {"jsonrpc":"2.0","method":"aria2.onDownloadStart","params":[{"gid":"6836fed41d4111d9"}]}
-[log] {"jsonrpc":"2.0","method":"aria2.onDownloadComplete","params":[{"gid":"6836fed41d4111d9"}]}
-[log] socketDataTransformer Error : type 'Null' is not a subtype of type 'String'
-[log] Data: {"jsonrpc":"2.0","method":"aria2.onDownloadComplete","params":[{"gid":"6836fed41d4111d9"}]}
-[log] WebSocket closed
+[log] initialized dataStream listener!
+2
+[log] DataStream|Data
+2
+[log] Aria2MethodResponse(aria2.addUri, RawResult(aria2.addUri, be539d66e2c32faa), aria2.addUri)
+[log] DataStream|Data
+2
+[log] Aria2Notification(aria2.onDownloadStart, [{gid: be539d66e2c32faa}])
+2
+[log] Aria2MethodResponse(aria2.getVersion, Aria2cVersion([BitTorrent, GZip, HTTPS, Message Digest, Metalink, XML-RPC, SFTP], 1.37.0), aria2.getVersion)
+[log] DataStream|Data
+2
+[log] Aria2MethodResponse(aria2.tellActive, RawResult(aria2.tellActive, [Instance of 'Aria2cTask']), aria2.tellActive)
+[log] DataStream|Data
+2
+[log] Aria2Notification(aria2.onDownloadError, [{gid: be539d66e2c32faa}])
+[log] DataStream|Data
+2
+[log] Aria2MethodResponse(aria2.tellActive, RawResult(aria2.tellActive, []), aria2.tellActive)
+[log] DataStream|Data
+2
+[log] Aria2MethodResponse(aria2.tellActive, RawResult(aria2.tellActive, []), aria2.tellActive)
+[log] DataStream|Data
+2
+[log] Aria2MethodResponse(aria2.tellActive, RawResult(aria2.tellActive, []), aria2.tellActive)
+[log] DataStream|Data
+2
+[log] Aria2MethodResponse(aria2.tellActive, RawResult(aria2.tellActive, []), aria2.tellActive)
+[log] DataStream|Data
+2
+[log] Aria2MethodResponse(aria2.tellActive, RawResult(aria2.tellActive, []), aria2.tellActive)

@@ -1,49 +1,54 @@
+import 'package:aria2cf/aria2cf.dart';
+import 'package:aria2cf/src/utils/logger.dart';
+
 main() async {
-  String secret = 'flutter';
+  String secret = 'shed';
 
-  //Aria2cRpcService service = Aria2cRpcService();
-/* 
-  await service.tryStart();
+  Aria2cSocket aria2cSocket = Aria2cSocket();
 
-  Future.delayed(const Duration(seconds: 5)).then((onValue) {
-    service.findAndKillAria2cProcess(killIfFound: true);
-  });
- */
-/*   Aria2cSocket aria2cSocket = Aria2cSocket();
+  await aria2cSocket.connect().then((onValue) async {
+    aria2cSocket.dataStream.listen(
+      (onData) {
+        logger('DataStream|Data');
+        logger(onData.toString());
 
-  await aria2cSocket.connect().then((onValue) {
+        final data = onData;
+
+        logger(data);
+      },
+      onError: (onError) {
+        logger('DataStream|Error');
+        logger(onError.toString());
+        logger(onError.runtimeType);
+      },
+      onDone: () {
+        logger('DataStream|Done');
+      },
+    );
+
     aria2cSocket.sendData(
       request: Aria2cRequest.getVersion(
         secret: secret,
       ),
     );
 
-    /* aria2cSocket.sendData( 
+    /*  aria2cSocket.sendData(
       request: Aria2cRequest.addUrl(
-        secret: 'flutter',
+        secret: secret,
         urls: [
           'https://file-examples.com/storage/fe58a1f07d66f447a9512f1/2017/04/file_example_MP4_1920_18MG.mp4'
         ],
       ),
     ); */
+
+    /* while (true) {
+      await Future.delayed(const Duration(seconds: 2)).then((onValue) {
+        aria2cSocket.sendData(
+          request: Aria2cRequest.tellActive(
+            secret: secret,
+          ),
+        );
+      });
+    } */
   });
-
-  aria2cSocket.dataStream.listen(
-    (onData) {
-      logger('DataStream|Data');
-      logger(onData.toString());
-
-      Aria2MethodResponse data = onData;
-
-      logger(data);
-    },
-    onError: (onError) {
-      logger('DataStream|Error');
-      logger(onError.toString());
-      logger(onError.runtimeType);
-    },
-    onDone: () {
-      logger('DataStream|Done');
-    },
-  ); */
 }
