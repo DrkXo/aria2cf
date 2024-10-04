@@ -30,9 +30,4 @@ dev_dependencies:
   lints: ^5.0.0
   test: ^1.24.8
 
-flutter:
-  assets:
-    - assets/aria2c/android/x64/
-    - assets/aria2c/linux/x64/
-    - assets/aria2c/macos/
-    - assets/aria2c/windows/x64/
+
