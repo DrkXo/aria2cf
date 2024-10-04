@@ -17,22 +17,25 @@ class Aria2cSocket extends Aria2cSocketUtils {
     return _instance;
   }
 
-  final IOWebSocketChannel _channel;
+  late IOWebSocketChannel _channel;
   bool _isReady = false;
 
-  Aria2cSocket._singleTone()
-      : _channel = IOWebSocketChannel.connect(
-          'ws://127.0.0.1:6800/jsonrpc',
-        );
+  Aria2cSocket._singleTone();
 
   final _behaviorSubject = StreamController.broadcast(sync: true);
 
   Stream<dynamic> get dataStream => _behaviorSubject.stream;
 
   Future<void> connect({
-    int maxAttempts = 5,
+    int maxAttempts = 2,
     Duration retryDelay = const Duration(seconds: 2),
   }) async {
+    _channel = IOWebSocketChannel.connect(
+      'ws://127.0.0.1:6800/jsonrpc',
+    );
+
+    logger('Attempting to connect to WebSocket at ws://127.0.0.1:6800/jsonrpc');
+
     int attempt = 0;
     while (attempt < maxAttempts) {
       try {
@@ -58,15 +61,15 @@ class Aria2cSocket extends Aria2cSocketUtils {
   void _addListener() {
     _channel.stream.transform(transformer).listen(
       (data) {
-        logger('Received data: ${data.toString()}');
+        //logger('Received data: ${data.toString()}');
         _behaviorSubject.add(data);
       },
       onError: (error) {
-        logger('WebSocket error: ${error.toString()}');
+        //logger('WebSocket error: ${error.toString()}');
         _behaviorSubject.addError(error);
       },
       onDone: () {
-        logger('WebSocket closed');
+        //logger('WebSocket closed');
         disconnect(); // Cleanup on closure
       },
     );
