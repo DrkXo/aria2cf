@@ -17,10 +17,7 @@ class Aria2cSocket extends Aria2cSocketUtils {
     return _instance;
   }
 
-  // ignore: unused_field
-  // late final String _secret;
   final IOWebSocketChannel _channel;
-  // ignore: unused_field
   bool _isReady = false;
 
   Aria2cSocket._singleTone()
@@ -28,54 +25,49 @@ class Aria2cSocket extends Aria2cSocketUtils {
           'ws://127.0.0.1:6800/jsonrpc',
         );
 
-  /* final _behaviorSubject = BehaviorSubject(
-    sync: true,
-    onListen: () {
-      logger('initialized dataStream listener!');
-    },
-  );
-   */
-
-  final _behaviorSubject = StreamController.broadcast(
-    sync: true,
-  );
+  final _behaviorSubject = StreamController.broadcast(sync: true);
 
   Stream<dynamic> get dataStream => _behaviorSubject.stream;
 
-  Future<void> connect() async {
-    try {
-      await _channel.ready;
-      _isReady = true;
-      logger('websocket ready!');
-      _addListener();
-    } on SocketException catch (e) {
-      // Handle the exception.
-      logger(e);
-      rethrow;
-    } on WebSocketChannelException catch (e) {
-      // Handle the exception.
-      logger(e);
-      rethrow;
-    } catch (e, s) {
-      logger('catch : $e\n$s');
-      rethrow;
-      // Handle the exception.
+  Future<void> connect({
+    int maxAttempts = 5,
+    Duration retryDelay = const Duration(seconds: 2),
+  }) async {
+    int attempt = 0;
+    while (attempt < maxAttempts) {
+      try {
+        await _channel.ready;
+        _isReady = true;
+        logger('WebSocket ready!');
+        _addListener();
+        return; // Exit on successful connection
+      } on SocketException catch (e) {
+        logger('SocketException: $e, attempt ${attempt + 1}');
+      } on WebSocketChannelException catch (e) {
+        logger('WebSocketChannelException: $e, attempt ${attempt + 1}');
+      } catch (e, s) {
+        logger('Catch error: $e\n$s');
+      }
+      attempt++;
+      await Future.delayed(retryDelay); // Delay before retry
     }
+    throw Exception(
+        'Failed to connect to aria2c socket after $maxAttempts attempts');
   }
 
   void _addListener() {
     _channel.stream.transform(transformer).listen(
       (data) {
-        //logger('Data: ${data.toString()}');
+        logger('Received data: ${data.toString()}');
         _behaviorSubject.add(data);
       },
       onError: (error) {
-        //logger('Error: ${error.toString()}');
+        logger('WebSocket error: ${error.toString()}');
         _behaviorSubject.addError(error);
       },
       onDone: () {
-        //logger('WebSocket closed');
-        _behaviorSubject.close();
+        logger('WebSocket closed');
+        disconnect(); // Cleanup on closure
       },
     );
   }
@@ -83,12 +75,15 @@ class Aria2cSocket extends Aria2cSocketUtils {
   void sendData({
     required Aria2cRequest request,
   }) {
-    //logger('SendData ${request.toJson()}');
     _channel.sink.add(request.toJson());
   }
 
   void disconnect() {
     _isReady = false;
     _channel.sink.close();
+    if (!_behaviorSubject.isClosed) {
+      _behaviorSubject.close(); // Ensure stream is closed
+    }
+    logger('WebSocket disconnected');
   }
 }
