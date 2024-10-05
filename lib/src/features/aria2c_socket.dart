@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, unused_catch_stack, unused_catch_clause
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -19,6 +18,7 @@ class Aria2cSocket {
   }
 
   late IOWebSocketChannel _channel;
+  // ignore: unused_field
   bool _isReady = false;
 
   Aria2cSocket._singleTone();
