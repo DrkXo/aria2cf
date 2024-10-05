@@ -1,5 +1,5 @@
 part of "../features/aria2c_socket.dart";
-
+/* 
 Future<void> _transformResponse(data, EventSink sink) async {
   try {
     //logger(data);
@@ -15,3 +15,5 @@ sealed class Aria2cSocketUtils {
     handleData: _transformResponse,
   );
 }
+
+ */

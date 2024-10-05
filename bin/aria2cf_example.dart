@@ -7,7 +7,25 @@ main() async {
   Aria2cSocket aria2cSocket = Aria2cSocket();
 
   await aria2cSocket.connect().then((onValue) async {
-    aria2cSocket.dataStream.listen(
+    /* aria2cSocket.methodStream.listen((onData) {
+      logger('methodStream');
+      logger(onData);
+    });
+    aria2cSocket.errorStream.listen((onData) {
+      logger('errorStream');
+      logger(onData);
+    });
+    aria2cSocket.notificationStream.listen((onData) {
+      logger('notificationStream');
+      logger(onData);
+    }); */
+
+    aria2cSocket.aria2cVersion.listen((onData) {
+      logger('aria2cVersion');
+      logger(onData);
+    });
+
+    /* aria2cSocket.dataStream.listen(
       (onData) {
         logger('DataStream|Data');
         logger(onData.toString());
@@ -25,9 +43,15 @@ main() async {
         logger('DataStream|Done');
       },
     );
-
+ */
     aria2cSocket.sendData(
       request: Aria2cRequest.getVersion(
+        secret: secret,
+      ),
+    );
+
+    aria2cSocket.sendData(
+      request: Aria2cRequest.tellActive(
         secret: secret,
       ),
     );

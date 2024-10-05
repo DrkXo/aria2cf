@@ -1,16 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, unused_catch_stack, unused_catch_clause
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:aria2cf/src/common/models/parser/parser.dart';
+import 'package:aria2cf/aria2cf.dart';
+import 'package:aria2cf/src/utils/aria2c_socket_transformers.dart';
 import 'package:aria2cf/src/utils/logger.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+part "../utils/aria2c_socket_filters.dart";
 part "../utils/aria2c_socket_utils.dart";
 
-class Aria2cSocket extends Aria2cSocketUtils {
+class Aria2cSocket {
   static final Aria2cSocket _instance = Aria2cSocket._singleTone();
 
   factory Aria2cSocket() {
@@ -22,7 +24,7 @@ class Aria2cSocket extends Aria2cSocketUtils {
 
   Aria2cSocket._singleTone();
 
-  final _behaviorSubject = StreamController.broadcast(sync: true);
+  final _behaviorSubject = BehaviorSubject<dynamic>();
 
   Stream<dynamic> get dataStream => _behaviorSubject.stream;
 
@@ -59,7 +61,7 @@ class Aria2cSocket extends Aria2cSocketUtils {
   }
 
   void _addListener() {
-    _channel.stream.transform(transformer).listen(
+    _channel.stream /* .transform(transformer) */ .listen(
       (data) {
         //logger('Received data: ${data.toString()}');
         _behaviorSubject.add(data);

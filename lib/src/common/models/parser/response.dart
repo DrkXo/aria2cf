@@ -62,7 +62,9 @@ class Aria2MethodResponse extends Aria2Response {
       jsonrpc: json['jsonrpc'],
       id: json['id'],
       result: Aria2Result.fromJson(
-          method, json['result']), // Dynamically parse result
+        method,
+        json['result'],
+      ), // Dynamically parse result
       method: method, // Use enum for method
     );
   }
