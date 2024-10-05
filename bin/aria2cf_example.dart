@@ -20,7 +20,7 @@ main() async {
       logger(onData);
     }); */
 
-    aria2cSocket.aria2cVersion.listen((onData) {
+    aria2cSocket.aria2cGetSessionInfoStream.listen((onData) {
       logger('aria2cVersion');
       logger(onData);
     });
@@ -45,7 +45,7 @@ main() async {
     );
  */
     aria2cSocket.sendData(
-      request: Aria2cRequest.getVersion(
+      request: Aria2cRequest.getSessionInfo(
         secret: secret,
       ),
     );

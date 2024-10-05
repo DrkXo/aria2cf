@@ -1,16 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, unused_catch_stack, unused_catch_clause
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:aria2cf/aria2cf.dart';
-import 'package:aria2cf/src/utils/aria2c_socket_transformers.dart';
 import 'package:aria2cf/src/utils/logger.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 part "../utils/aria2c_socket_filters.dart";
-part "../utils/aria2c_socket_utils.dart";
 
 class Aria2cSocket {
   static final Aria2cSocket _instance = Aria2cSocket._singleTone();
