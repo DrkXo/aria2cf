@@ -88,6 +88,7 @@ extension Aria2SocketExtension on Aria2cSocket {
     return methodStreamStream
         .where((data) => data.method == method)
         .map((data) {
+      //logger(data);
       final result = (data.result as RawResult).parsedData();
       if (result is T) {
         return result;

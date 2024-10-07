@@ -73,24 +73,58 @@ class Aria2MethodResponse extends Aria2Response {
   List<Object?> get props => [/* _jsonrpc, */ id, result, method];
 }
 
+enum Aria2NotificationType {
+  downloadStart,
+  downloadPause,
+  downloadStop,
+  downloadComplete,
+  downloadError,
+  btDownloadComplete,
+  unknown,
+}
+
 class Aria2Notification extends Aria2Response {
   final String method;
   final List<dynamic> params;
+  final Aria2NotificationType notificationType;
 
   const Aria2Notification({
     required super.jsonrpc,
     required this.method,
     required this.params,
+    required this.notificationType,
   });
 
+  // Factory constructor that maps the method to the enum
   factory Aria2Notification.fromJson(Map<String, dynamic> json) {
     return Aria2Notification(
       jsonrpc: json['jsonrpc'],
       method: json['method'],
       params: json['params'],
+      notificationType: _parseMethod(json['method']),
     );
   }
 
   @override
-  List<Object?> get props => [method, params];
+  List<Object?> get props => [method, params, notificationType];
+
+  // Method to parse the notification method string into an enum value
+  static Aria2NotificationType _parseMethod(String method) {
+    switch (method) {
+      case 'aria2.onDownloadStart':
+        return Aria2NotificationType.downloadStart;
+      case 'aria2.onDownloadPause':
+        return Aria2NotificationType.downloadPause;
+      case 'aria2.onDownloadStop':
+        return Aria2NotificationType.downloadStop;
+      case 'aria2.onDownloadComplete':
+        return Aria2NotificationType.downloadComplete;
+      case 'aria2.onDownloadError':
+        return Aria2NotificationType.downloadError;
+      case 'aria2.onBtDownloadComplete':
+        return Aria2NotificationType.btDownloadComplete;
+      default:
+        return Aria2NotificationType.unknown; // Handle any unknown method
+    }
+  }
 }
